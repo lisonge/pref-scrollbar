@@ -1,21 +1,22 @@
 import { GM_getValue, GM_setValue } from '$';
-import { createVaporApp } from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
 import { useCheckedMenu } from './utils';
 
 const [mount, unmount] = (() => {
-  let app: ReturnType<typeof createVaporApp> | undefined;
-  let div: HTMLDivElement | undefined;
+  let app: ReturnType<typeof createApp> | undefined;
+  let div: HTMLElement | undefined;
   return [
     // mount
     async () => {
       div = document.createElement('div');
-      app = createVaporApp(App);
-      app.mount(div);
+      div.classList.add('pref-scrollbar-container');
       while (!document.body) {
         await new Promise((r) => setTimeout(r));
       }
       document.body.append(div);
+      app = createApp(App);
+      app.mount(div);
     },
     // unmount
     () => {
@@ -24,7 +25,7 @@ const [mount, unmount] = (() => {
         app = undefined;
       }
       if (div) {
-        div.parentElement?.removeChild(div);
+        div.remove();
         div = undefined;
       }
     },

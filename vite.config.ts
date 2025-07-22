@@ -13,6 +13,9 @@ export default defineConfig({
         match: ['http://*/*', 'https://*/*'],
         'run-at': 'document-start',
       },
+      server: {
+        prefix: false,
+      },
     }),
   ],
   esbuild: {

@@ -1,9 +1,5 @@
-<script setup lang="ts" vapor generic>
-import {
-  useElementBounding,
-  useEventListener,
-  useWindowSize,
-} from '@vueuse/core';
+<script setup lang="ts">
+import { useEventListener, useWindowSize, useElementSize } from '@vueuse/core';
 import { computed, onMounted, onUnmounted, shallowRef } from 'vue';
 import type { CSSProperties } from 'vue';
 
@@ -30,7 +26,7 @@ onUnmounted(() => {
   document.head.removeChild(style);
 });
 const { height: winH, width: winW } = useWindowSize();
-const body = useElementBounding(document.body);
+const body = useElementSize(document.body);
 
 // see https://github.com/user-attachments/assets/89796d25-b360-4486-9cf7-79a5e598022c
 const errorDistance = 2;
@@ -181,7 +177,7 @@ useEventListener('selectstart', (e) => {
 <style scoped>
 .BodyScrollbar {
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   .y-track {
     position: fixed;
     right: 2px;
