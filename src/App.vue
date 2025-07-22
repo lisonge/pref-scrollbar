@@ -49,7 +49,7 @@ const yStyle = computed<CSSProperties>(() => {
     height: `${yHeight.value}px`,
   };
 });
-const clickBoxY = async (e: MouseEvent) => {
+const clickY = async (e: MouseEvent) => {
   const deltaY =
     yHeight.value *
     0.9 *
@@ -102,7 +102,7 @@ const xStyle = computed<CSSProperties>(() => {
   };
 });
 
-const clickBoxX = (e: MouseEvent) => {
+const clickX = (e: MouseEvent) => {
   const deltaX =
     xWidth.value * 0.9 * (e.clientX < xWidth.value + translateX.value ? -1 : 1);
   const clientWidth = body.width.value;
@@ -141,71 +141,62 @@ useEventListener('selectstart', (e) => {
 });
 </script>
 <template>
-  <div class="BodyScrollbar">
+  <div
+    class="y-track"
+    v-show="yShow"
+    @pointerdown="pointerdownY"
+    @click="clickY"
+  >
     <div
-      class="y-track"
-      v-show="yShow"
-      @pointerdown="pointerdownY"
-      @click="clickBoxY"
-    >
-      <div
-        class="slider"
-        @click.stop
-        :style="yStyle"
-        :class="{
-          dragging: yDragging,
-        }"
-      ></div>
-    </div>
+      class="slider"
+      @click.stop
+      :style="yStyle"
+      :class="{
+        dragging: yDragging,
+      }"
+    ></div>
+  </div>
+  <div v-if="xShow" class="x-track" @pointerdown="pointerdownX" @click="clickX">
     <div
-      v-if="xShow"
-      class="x-track"
-      @pointerdown="pointerdownX"
-      @click="clickBoxX"
-    >
-      <div
-        class="slider"
-        @click.stop
-        :style="xStyle"
-        :class="{
-          dragging: xDragging,
-        }"
-      ></div>
-    </div>
+      class="slider"
+      @click.stop
+      :style="xStyle"
+      :class="{
+        dragging: xDragging,
+      }"
+    ></div>
   </div>
 </template>
 <style scoped>
-.BodyScrollbar {
+.y-track {
   position: fixed;
   z-index: 1000;
-  .y-track {
-    position: fixed;
-    right: 2px;
-    top: 0;
-    bottom: 0;
-    width: 8px;
-  }
-  .x-track {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 2px;
-    height: 8px;
-  }
-  .slider {
-    height: 100%;
-    background: #909399;
-    transition: opacity 200ms;
-    border-radius: 4px;
-  }
-  .slider:not(.dragging) {
-    opacity: 0.3;
-  }
-  .slider:hover {
-    opacity: 0.5;
-  }
-  .slider.dragging {
-    opacity: 0.5;
-  }
+  right: 2px;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+}
+.x-track {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 8px;
+}
+.slider {
+  height: 100%;
+  background: #8b8b8b;
+  transition: opacity 200ms;
+  border-radius: 4px;
+}
+.slider:not(.dragging) {
+  opacity: 0.5;
+}
+.slider:hover {
+  opacity: 0.75;
+}
+.slider.dragging {
+  opacity: 0.75;
 }
 </style>

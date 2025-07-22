@@ -13,7 +13,7 @@
 // @run-at     document-start
 // ==/UserScript==
 
-(t=>{if(typeof GM_addStyle=="function"){GM_addStyle(t);return}const d=document.createElement("style");d.textContent=t,document.head.append(d)})(" .BodyScrollbar[data-v-7de19f4e]{position:fixed;z-index:1000}.BodyScrollbar .y-track[data-v-7de19f4e]{position:fixed;right:2px;top:0;bottom:0;width:8px}.BodyScrollbar .x-track[data-v-7de19f4e]{position:fixed;left:0;right:0;bottom:2px;height:8px}.BodyScrollbar .slider[data-v-7de19f4e]{height:100%;background:#909399;transition:opacity .2s;border-radius:4px}.BodyScrollbar .slider[data-v-7de19f4e]:not(.dragging){opacity:.3}.BodyScrollbar .slider[data-v-7de19f4e]:hover,.BodyScrollbar .slider.dragging[data-v-7de19f4e]{opacity:.5} ");
+(t=>{if(typeof GM_addStyle=="function"){GM_addStyle(t);return}const d=document.createElement("style");d.textContent=t,document.head.append(d)})(" .y-track[data-v-a4d469c2]{position:fixed;z-index:1000;right:2px;top:0;bottom:0;width:8px}.x-track[data-v-a4d469c2]{position:fixed;z-index:1000;left:0;right:0;bottom:2px;height:8px}.slider[data-v-a4d469c2]{height:100%;background:#8b8b8b;transition:opacity .2s;border-radius:4px}.slider[data-v-a4d469c2]:not(.dragging){opacity:.5}.slider[data-v-a4d469c2]:hover,.slider.dragging[data-v-a4d469c2]{opacity:.75} ");
 
 (function () {
   'use strict';
@@ -6646,7 +6646,6 @@
     }
     return { width, height };
   }
-  const _hoisted_1 = { class: "BodyScrollbar" };
   const errorDistance = 2;
   const _sfc_main = /* @__PURE__ */ defineComponent({
     __name: "App",
@@ -6692,7 +6691,7 @@
           height: `${yHeight.value}px`
         };
       });
-      const clickBoxY = async (e) => {
+      const clickY = async (e) => {
         const deltaY = yHeight.value * 0.9 * (e.clientY < yHeight.value + translateY.value ? -1 : 1);
         const clientHeight = body.height.value;
         const bodyHeight = clientHeight;
@@ -6740,7 +6739,7 @@
           width: `${xWidth.value}px`
         };
       });
-      const clickBoxX = (e) => {
+      const clickX = (e) => {
         const deltaX = xWidth.value * 0.9 * (e.clientX < xWidth.value + translateX.value ? -1 : 1);
         const clientWidth = body.width.value;
         const bodyWidth = clientWidth;
@@ -6774,11 +6773,11 @@
         }
       });
       return (_ctx, _cache) => {
-        return openBlock(), createElementBlock("div", _hoisted_1, [
+        return openBlock(), createElementBlock(Fragment, null, [
           withDirectives(createBaseVNode("div", {
             class: "y-track",
             onPointerdown: pointerdownY,
-            onClick: clickBoxY
+            onClick: clickY
           }, [
             createBaseVNode("div", {
               class: normalizeClass(["slider", {
@@ -6795,7 +6794,7 @@
             key: 0,
             class: "x-track",
             onPointerdown: pointerdownX,
-            onClick: clickBoxX
+            onClick: clickX
           }, [
             createBaseVNode("div", {
               class: normalizeClass(["slider", {
@@ -6806,7 +6805,7 @@
               style: normalizeStyle(xStyle.value)
             }, null, 6)
           ], 32)) : createCommentVNode("", true)
-        ]);
+        ], 64);
       };
     }
   });
@@ -6817,7 +6816,7 @@
     }
     return target;
   };
-  const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-7de19f4e"]]);
+  const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-a4d469c2"]]);
   const useCheckedMenu = ({
     checkedTag = "✅ ",
     checkedName = "",

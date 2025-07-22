@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/node": "24.0.15",
     "@vitejs/plugin-vue": "6.0.0",
     "@vueuse/core": "13.5.0",
     "typescript": "5.8.3",
